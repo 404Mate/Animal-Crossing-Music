@@ -89,7 +89,7 @@ def noweathernewleafhourly():
         playsound("AC Music/Animal-Crossing-Music/hourly songs/11PM.mp3")
         noweathernewleafhourly()
     else:
-        print("shits fucked, make a bug report")
+        print("Something is wrong with detecting the time, please try again later or make a bug report")
         exit()
    
 #sanity check, current hour in 24h format
