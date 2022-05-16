@@ -2,6 +2,7 @@
 import time
 from playsound import playsound
 import os 
+os.chdir("songs")
 
 # Get Current Time, save current hour to var
 Time = time.localtime()
@@ -11,15 +12,10 @@ hour = time.strftime("%H", Time)
 # functions for different weathers/no weather
 def updateweather():
     if weather == "1":
-        os.chdir("songs")
         sunnynewleaf()
     elif weather == "2":
-        os.chdir("songs")
-        os.chdir("rain")
         rainynewleaf()
     elif weather == "3":
-        os.chdir("songs")
-        os.chdir("snow")
         snowynewleaf()
 def noweathernewleafhourly():
     # Get Current Time, save current hour to var and move to the songs folder
@@ -271,7 +267,6 @@ def snowynewleaf():
 print("The Hour is", hour)
 
 # collect zipcode/skip zipcode
-os.chdir("songs")
 print("""How do you want weather?
 1: Zipcode
 2: Manual
