@@ -1,8 +1,15 @@
 # Animal-Crossing-Music
- Plays hourly Animal Crosing Music
+Plays hourly Animal Crosing Music
 
 Goals
 ------------
-1: Play normal songs every hour from New Leaf
+1: ~~Play normal songs every hour from New Leaf~~
 
-2: Add Rain/Snow using Openweathermap
+2: ~~Add Rain/Snow using Openweathermap~~
+
+3: Clean up code
+
+Use
+------------
+· Expects "secrets.env" in root folder with a varible named "secret" with your openweathermap api key.
+· requires requests, dotenv, and playsound,
