@@ -26,7 +26,7 @@ def updateweather():
         descr = data['weather'][0]['description']
         weatherid = data['weather'][0]['id']
         #print(f"City Name : {city_name}")
-        print(f"The Weather Condition is {descr}")
+        print(f"current weather: {descr}")
         #print(f"The weather ID is {weatherid}")
     else:
         print("Something Went Wrong")
