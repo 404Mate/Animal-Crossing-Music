@@ -21,3 +21,24 @@ if data['cod'] == 200:
     print(f"The weather ID is {weatherid}")
 else:
     print("Something Went Wrong")
+fullid = weatherid
+while (weatherid >= 10):
+    weatherid = weatherid // 10
+
+print("The weather type is", weatherid)
+print(fullid)
+
+if weatherid == 2:
+    print("Thunder")
+elif weatherid == 3:
+    print("Drizzle")
+elif weatherid == 5:
+    print("rain")
+elif weatherid == 6:
+    print("snow")
+elif weatherid == 7:
+    print("Atmophere Condition")
+elif weatherid == 8:
+    print("sunny!")
+else:
+    print("Something went wrong and im too lazy to figure it out")
