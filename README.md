@@ -7,9 +7,10 @@ Goals
 
 2: ~~Add Rain/Snow using Openweathermap~~
 
-3: Clean up code
+3: ~~Clean up code~~ done?
 
 Use
 ------------
 · Expects "secrets.env" in root folder with a varible named "secret" with your openweathermap api key.
+
 · requires requests, dotenv, and playsound,
