@@ -60,8 +60,8 @@ def sunnynewleaf():
         playsound("12AM.mp3")
         sunnynewleaf()
     elif hour == "01":
-            playsound("1AM.mp3")
-            sunnynewleaf()
+        playsound("1AM.mp3")
+        sunnynewleaf()
     elif hour == "02":
         playsound("2AM.mp3")
         sunnynewleaf()
@@ -141,8 +141,8 @@ def rainynewleaf():
         playsound("12AMRainy.mp3")
         rainynewleaf()
     elif hour == "01":
-            playsound("1AMRainy.mp3")
-            rainynewleaf()
+        playsound("1AMRainy.mp3")
+        rainynewleaf()
     elif hour == "02":
         playsound("2AMRainy.mp3")
         rainynewleaf()
@@ -221,8 +221,8 @@ def snowynewleaf():
         playsound("12AMSnow.mp3")
         snowynewleaf()
     elif hour == "01":
-            playsound("1AMSnow.mp3")
-            snowynewleaf()
+        playsound("1AMSnow.mp3")
+        snowynewleaf()
     elif hour == "02":
         playsound("2AMSnow.mp3")
         snowynewleaf()
@@ -301,8 +301,8 @@ def sunnynewleafweather():
         playsound("12AM.mp3")
         updateweather()
     elif hour == "01":
-            playsound("1AM.mp3")
-            updateweather()
+        playsound("1AM.mp3")
+        updateweather()
     elif hour == "02":
         playsound("2AM.mp3")
         updateweather()
@@ -382,8 +382,8 @@ def rainynewleafweather():
         playsound("12AMRainy.mp3")
         updateweather()
     elif hour == "01":
-            playsound("1AMRainy.mp3")
-            updateweather()
+        playsound("1AMRainy.mp3")
+        updateweather()
     elif hour == "02":
         playsound("2AMRainy.mp3")
         updateweather()
@@ -462,8 +462,8 @@ def snowynewleafweather():
         playsound("12AMSnow.mp3")
         updateweather()
     elif hour == "01":
-            playsound("1AMSnow.mp3")
-            updateweather()
+        playsound("1AMSnow.mp3")
+        updateweather()
     elif hour == "02":
         playsound("2AMSnow.mp3")
         updateweather()
@@ -540,6 +540,7 @@ print("The Hour is", hour)
 
 # collect zipcode/skip zipcode
 print("""How do you want weather?
+
 1: Zipcode
 2: Manual
 3 Skip
