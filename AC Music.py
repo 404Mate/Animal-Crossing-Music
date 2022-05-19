@@ -7,7 +7,7 @@ import requests
 
 # Load secrets, go to songs folder
 load_dotenv("secrets.env")
-api_key = os.getenv('secret')
+api_key = os.getenv('apikey')
 os.chdir("songs")
 
 # Get Current Time, save current hour to var
