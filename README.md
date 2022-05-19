@@ -11,6 +11,6 @@ Goals
 
 Use
 ------------
-· Expects "secrets.env" in root folder with a varible named "secret" with your openweathermap api key.
+· Expects "secrets.env" in root folder with a varible named "apikey" with your openweathermap api key.
 
-· requires requests, dotenv, and playsound, (playsound==1.2.2 on windows)
+· requires requests, dotenv, and playsound (playsound==1.2.2 on windows for... reasons)
