@@ -8,10 +8,16 @@ import requests
 # Load secrets, go to songs folder
 load_dotenv("secrets.env")
 api_key = os.getenv('apikey')
-os.chdir("songs")
-# Get Current Time, save current hour to var
 
+game = input("""What Game do you want music from? 
+1: New Leaf
+2: New Horizons
 
+""")
+if game == "1":
+    os.chdir("newleaf")
+else:
+    print("this is not supported atm")
 # functions for different weathers/no weather
 def updateweather():
     global localweather
