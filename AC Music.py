@@ -9,26 +9,22 @@ import requests
 load_dotenv("secrets.env")
 api_key = os.getenv('apikey')
 os.chdir("songs")
-
 # Get Current Time, save current hour to var
 
 
 # functions for different weathers/no weather
 def updateweather():
-    global weather
+    global localweather
     root_url = "http://api.openweathermap.org/data/2.5/weather?"
-    city_name = zipcode
-    url = f"{root_url}appid={api_key}&q={city_name}"
+    url = f"{root_url}appid={api_key}&q={zipcode}"
     r = requests.get(url)
     data = r.json()
     if data['cod'] == 200:
         descr = data['weather'][0]['description']
         weatherid = data['weather'][0]['id']
-        #print(f"City Name : {city_name}")
-        print(f"current weather: {descr}")
-        #print(f"The weather ID is {weatherid}")
     else:
         print("Something Went Wrong")
+        exit()
     fullid = weatherid
     while (weatherid >= 10):
         weatherid = weatherid // 10
@@ -36,17 +32,17 @@ def updateweather():
     #print("The weather type is", weatherid)
 
     if weatherid == 2:
-        weather = "rainy"
+        localweather = "rainy"
     elif weatherid == 3:
-        weather = "rainy"
+        localweather = "rainy"
     elif weatherid == 5:
-        weather = "rainy"
+        localweather = "rainy"
     elif weatherid == 6:
-        weather = "snowy"
+        localweather = "snowy"
     elif weatherid == 7:
-        weather = "clear"
+        localweather = "clear"
     elif weatherid == 8:
-        weather = ""
+        localweather = ""
     else:
         print("Something went wrong and im too lazy to figure it out") 
 def updatetime():
@@ -70,20 +66,23 @@ def clearnewleaf():
     updatetime()
     song = f"{hour}{weather}.mp3"
     playsound(song)
+    clearnewleaf()
 def rainynewleaf():
     weather = "Rainy"
     updatetime()
     song = f"{hour}{weather}.mp3"
     playsound(song)
+    rainynewleaf()
 def snowynewleaf():
     weather = "Snowy"
     updatetime()
     song = f"{hour}{weather}.mp3"
     playsound(song)
+    snowynewleaf()
 def weathernewleaf():
     updateweather()
     updatetime()
-    song = f"{hour}{weather}.mp3"
+    song = f"{hour}{localweather}.mp3"
     playsound(song)
     weathernewleaf()
 # sanity check, current hour in 24h format
@@ -102,12 +101,10 @@ weatherchoice = input()
 if weatherchoice == "1":
     zipcode = input("""What is your zipcode? 
 """)
+    updateweather()
     weathernewleaf()
 elif weatherchoice == "2":
-    manualweather = input("""
-    
-    
-1: Sunny
+    manualweather = input("""1: Sunny
 2: Rainy
 3: Snowy
 """)
