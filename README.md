@@ -20,4 +20,4 @@ Use
 
 
 
-All songs are owned by Nintendo.
+All songs are owned by Nintendo and sourced from Archive.org. I do not claim any of these songs as mine. Please contact me if you would like them taken down.
