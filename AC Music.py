@@ -16,8 +16,11 @@ game = input("""What Game do you want music from?
 """)
 if game == "1":
     os.chdir("newleaf")
+elif game == "2":
+    os.chdir("newhorizons")
 else:
-    print("this is not supported atm")
+    print("Sorry, that was not recognized")
+    exit()
 # functions for different weathers/no weather
 def updateweather():
     global localweather
