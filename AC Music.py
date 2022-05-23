@@ -85,6 +85,7 @@ def weathernewleaf():
     updatetime()
     song = f"{hour}{weather}.mp3"
     playsound(song)
+    weathernewleaf()
 # sanity check, current hour in 24h format
 updatetime()
 print("It is now", hour)
