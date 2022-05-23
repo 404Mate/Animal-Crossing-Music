@@ -7,7 +7,7 @@ Goals
 
 2: ~~Add Rain/Snow using Openweathermap~~
 
-3: ~~Clean up code~~ done?
+3: Clean up code
 
 Use
 ------------
