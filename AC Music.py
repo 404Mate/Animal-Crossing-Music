@@ -21,6 +21,8 @@ elif game == "2":
 else:
     print("Sorry, that was not recognized")
     exit()
+
+
 # functions for different weathers/no weather
 def updateweather():
     global localweather
@@ -31,6 +33,9 @@ def updateweather():
     if data['cod'] == 200:
         descr = data['weather'][0]['description']
         weatherid = data['weather'][0]['id']
+    elif fallback == True:
+        print("Falling back to sunny music")
+        clearnewleaf()
     else:
         print("Something Went Wrong")
         exit()
@@ -108,8 +113,15 @@ print("""How do you want weather?
 
 weatherchoice = input()
 if weatherchoice == "1":
-    zipcode = input("""What is your zipcode? 
+    zipcode = input("""What is your zipcode or city name? 
 """)
+    fallback = input("""If you lose internet do you want to fallback to sunny music? 
+1: Yes
+2: No
+"""
+    if fallback == "1":
+        fallback == True
+    else: fallback == False
     updateweather()
     weathernewleaf()
 elif weatherchoice == "2":
