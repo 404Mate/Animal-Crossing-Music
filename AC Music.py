@@ -54,7 +54,7 @@ def updateweather():
     elif weatherid == 6:
         localweather = "snowy"
     elif weatherid == 7:
-        localweather = "clear"
+        localweather = ""
     elif weatherid == 8:
         localweather = ""
     else:
@@ -78,26 +78,23 @@ def updatetime():
 def clearnewleaf():
     weather = ""
     updatetime()
-    song = f"{hour}{weather}.mp3"
-    playsound(song)
+    playsound(f"{hour}{weather}.mp3")
     clearnewleaf()
 def rainynewleaf():
     weather = "Rainy"
     updatetime()
-    song = f"{hour}{weather}.mp3"
-    playsound(song)
+    playsound(f"{hour}{weather}.mp3")
     rainynewleaf()
 def snowynewleaf():
     weather = "Snowy"
     updatetime()
-    song = f"{hour}{weather}.mp3"
-    playsound(song)
+    playsound(f"{hour}{weather}.mp3")
     snowynewleaf()
 def weathernewleaf():
+    global weather
     updateweather()
     updatetime()
-    song = f"{hour}{localweather}.mp3"
-    playsound(song)
+    playsound(f"{hour}{weather}.mp3")
     weathernewleaf()
 # sanity check, current hour in 24h format
 updatetime()
