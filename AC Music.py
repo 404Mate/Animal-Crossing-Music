@@ -8,6 +8,7 @@ import requests
 # Load secrets, go to songs folder
 load_dotenv("secrets.env")
 api_key = os.getenv('apikey')
+os.chdir("songs")
 
 game = input("""What Game do you want music from? 
 1: New Leaf
@@ -15,9 +16,9 @@ game = input("""What Game do you want music from?
 
 """)
 if game == "1":
-    os.chdir("newleaf")
+    game = "NL"
 elif game == "2":
-    os.chdir("newhorizons")
+    game = "NH"
 else:
     print("Sorry, that was not recognized")
     exit()
@@ -78,23 +79,23 @@ def updatetime():
 def clearnewleaf():
     weather = ""
     updatetime()
-    playsound(f"{hour}{weather}.mp3")
+    playsound(f"{hour}{game}{weather}.mp3")
     clearnewleaf()
 def rainynewleaf():
     weather = "Rainy"
     updatetime()
-    playsound(f"{hour}{weather}.mp3")
+    playsound(f"{hour}{game}{weather}.mp3")
     rainynewleaf()
 def snowynewleaf():
     weather = "Snowy"
     updatetime()
-    playsound(f"{hour}{weather}.mp3")
+    playsound(f"{hour}{game}{weather}.mp3")
     snowynewleaf()
 def weathernewleaf():
     global weather
     updateweather()
     updatetime()
-    playsound(f"{hour}{weather}.mp3")
+    playsound(f"{hour}{game}{weather}.mp3")
     weathernewleaf()
 # sanity check, current hour in 24h format
 updatetime()
