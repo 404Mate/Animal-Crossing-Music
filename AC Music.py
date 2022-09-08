@@ -95,7 +95,7 @@ def weathernewleaf():
     global weather
     updateweather()
     updatetime()
-    playsound(f"{hour}{game}{weather}.mp3")
+    playsound(f"{hour}{game}{localweather}.mp3")
     weathernewleaf()
 # sanity check, current hour in 24h format
 updatetime()
@@ -143,3 +143,4 @@ elif weatherchoice == "4":
 else:
     print("Sorry, that was not recognized")
     exit()
+#made by 404Mate with <3
