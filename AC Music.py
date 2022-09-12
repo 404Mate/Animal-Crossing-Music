@@ -10,22 +10,24 @@ load_dotenv("secrets.env")
 api_key = os.getenv('apikey')
 os.chdir("songs")
 
-game = input("""What Game do you want music from? 
-1: New Leaf
-2: New Horizons
+game = input("""
+What Game do you want music from? 
+
+1: New Horizons
+2: New Leaf
 
 """)
 if game == "1":
-    game = "NL"
-elif game == "2":
     game = "NH"
+elif game == "2":
+    game = "NL"
 else:
     print("Sorry, that was not recognized")
     exit()
 
 
-# functions for different weathers/no weather
-def updateweather():
+# functions for different weathers/no weather and updating variables
+def updateweather(): 
     global localweather
     root_url = "http://api.openweathermap.org/data/2.5/weather?"
     url = f"{root_url}appid={api_key}&q={zipcode}"
@@ -60,6 +62,7 @@ def updateweather():
         localweather = ""
     else:
         print("Something went wrong and im too lazy to figure it out") 
+
 def updatetime():
     Time = time.localtime()
     current_time = time.strftime("%H", Time)
@@ -76,46 +79,61 @@ def updatetime():
     else:
         hour = str(hour) 
         hour = hour + "AM"
+
 def clearnewleaf():
     weather = ""
     updatetime()
     playsound(f"{hour}{game}{weather}.mp3")
     clearnewleaf()
+
 def rainynewleaf():
     weather = "Rainy"
     updatetime()
     playsound(f"{hour}{game}{weather}.mp3")
     rainynewleaf()
+
 def snowynewleaf():
     weather = "Snowy"
     updatetime()
     playsound(f"{hour}{game}{weather}.mp3")
     snowynewleaf()
+
 def weathernewleaf():
     global weather
     updateweather()
     updatetime()
     playsound(f"{hour}{game}{localweather}.mp3")
     weathernewleaf()
+
 # sanity check, current hour in 24h format
 updatetime()
-print("It is now", hour)
+print("""
+It is now""", hour
+)
 
 # collect zipcode/skip zipcode
-print("""How do you want weather?
+print("""
+How do you want weather?
 
 1: Zipcode
 2: Manual
 3 Skip
-4: Exit""")
+4: Exit
+
+""")
 
 weatherchoice = input()
 if weatherchoice == "1":
-    zipcode = input("""What is your zipcode or city name? 
-""")
-    fallback = input("""If you lose internet do you want to fallback to sunny music? 
+    zipcode = input("""
+What is your zipcode or city name? 
+
+"""
+)
+    fallback = input("""
+If you lose internet do you want to fallback to sunny music? 
 1: Yes
 2: No
+
 """)
     if fallback == "1":
         fallback == True
@@ -123,9 +141,11 @@ if weatherchoice == "1":
     updateweather()
     weathernewleaf()
 elif weatherchoice == "2":
-    manualweather = input("""1: Sunny
+    manualweather = input("""
+1: Sunny
 2: Rainy
 3: Snowy
+
 """)
     if manualweather == "1":
         clearnewleaf()
@@ -143,4 +163,8 @@ elif weatherchoice == "4":
 else:
     print("Sorry, that was not recognized")
     exit()
-#made by 404Mate with <3
+
+
+#---------------------------
+#  made by 404Mate with <3  
+#---------------------------
