@@ -4,6 +4,7 @@ from playsound import playsound
 import os 
 from dotenv import load_dotenv
 import requests
+from random import randint
 
 # Load secrets, go to songs folder
 load_dotenv("secrets.env")
@@ -15,12 +16,15 @@ What Game do you want music from?
 
 1: New Horizons
 2: New Leaf
+3: Random
 
 """)
 if game == "1":
     game = "NH"
 elif game == "2":
     game = "NL"
+elif game == "3":
+    game = "random"
 else:
     print("Sorry, that was not recognized")
     exit()
@@ -36,12 +40,10 @@ def updateweather():
     if data['cod'] == 200:
         descr = data['weather'][0]['description']
         weatherid = data['weather'][0]['id']
-    elif fallback == True:
+    else:
         print("Falling back to sunny music")
         clearnewleaf()
-    else:
-        print("Something Went Wrong")
-        exit()
+
     fullid = weatherid
     while (weatherid >= 10):
         weatherid = weatherid // 10
@@ -83,26 +85,58 @@ def updatetime():
 def clearnewleaf():
     weather = ""
     updatetime()
-    playsound(f"{hour}{game}{weather}.mp3")
+    if game == "random":
+        randgame = randint(1, 2)
+        if randgame == 1:
+            randgame = "NH"
+        elif randgame == 2:
+            randgame = "NL"
+        playsound(f"{hour}{randgame}{weather}.mp3")
+    else:
+        playsound(f"{hour}{game}{weather}.mp3")
     clearnewleaf()
 
 def rainynewleaf():
     weather = "Rainy"
     updatetime()
-    playsound(f"{hour}{game}{weather}.mp3")
+    if game == "random":
+        randgame = randint(1, 2)
+        if randgame == 1:
+            randgame == "NH"
+        elif randgame == 2:
+            randgame == "NL"
+        playsound(f"{hour}{randgame}{weather}.mp3")
+    else:
+        playsound(f"{hour}{game}{weather}.mp3")
     rainynewleaf()
 
 def snowynewleaf():
     weather = "Snowy"
     updatetime()
-    playsound(f"{hour}{game}{weather}.mp3")
+    if game == "random":
+        randgame = randint(1, 2)
+        if randgame == 1:
+            randgame = "NH"
+        elif randgame == 2:
+            randgame = "NL"
+        playsound(f"{hour}{randgame}{weather}.mp3")
+    else:
+        playsound(f"{hour}{game}{weather}.mp3")
     snowynewleaf()
 
 def weathernewleaf():
     global weather
     updateweather()
     updatetime()
-    playsound(f"{hour}{game}{localweather}.mp3")
+    if game == "random":
+        randgame = randint(1, 2)
+        if randgame == 1:
+            randgame = "NH"
+        elif randgame == 2:
+            randgame = "NL"
+        playsound(f"{hour}{randgame}{localweather}.mp3")
+    else:
+        playsound(f"{hour}{game}{localweather}.mp3")
     weathernewleaf()
 
 # sanity check, current hour in 24h format
@@ -117,7 +151,7 @@ How do you want weather?
 
 1: Zipcode
 2: Manual
-3 Skip
+3 Random
 4: Exit
 
 """)
@@ -129,15 +163,6 @@ What is your zipcode or city name?
 
 """
 )
-    fallback = input("""
-If you lose internet do you want to fallback to sunny music? 
-1: Yes
-2: No
-
-""")
-    if fallback == "1":
-        fallback == True
-    else: fallback == False
     updateweather()
     weathernewleaf()
 elif weatherchoice == "2":
@@ -157,7 +182,13 @@ elif weatherchoice == "2":
         print("Sorry, that was not recognized")
         exit()
 elif weatherchoice == "3":
-    clearnewleaf()
+    randweather = randint(1, 3)
+    if randweather == 1:
+        clearnewleaf()
+    elif randweather == 2:
+        rainynewleaf()
+    else:
+        snowynewleaf()
 elif weatherchoice == "4":
     print("Thank you, goodbye")
 else:
