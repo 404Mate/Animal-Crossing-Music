@@ -7,7 +7,9 @@ Goals
 
 2: ~~Add Rain/Snow using Openweathermap~~
 
-3: Clean up code
+3: Clean up code  
+
+4: Add a GUI and package as an app  
 
 Use
 ------------
