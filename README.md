@@ -1,5 +1,5 @@
 # Animal-Crossing-Music
-Plays hourly Animal Crosing Music in Python. 
+Plays hourly Animal Crossing Music in Python. 
 
 Goals
 ------------
