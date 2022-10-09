@@ -39,17 +39,17 @@ def get_weather():
 
     # https://openweathermap.org/weather-conditions
     if weatherid == 2:
-        localweather = "rainy"
+        weather = "Rainy"
     elif weatherid == 3:
-        localweather = "rainy"
+        weather = "Rainy"
     elif weatherid == 5:
-        localweather = "rainy"
+        weather = "Rainy"
     elif weatherid == 6:
-        localweather = "snowy"
+        weather = "Snowy"
     else:
-        localweather = ""
+        weather = ""
 
-    return localweather
+    return weather
 
 def get_time():
     return time.strftime("%H%p", time.localtime())
