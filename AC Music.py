@@ -38,13 +38,11 @@ def updateweather():
     r = requests.get(url)
     data = r.json()
     if data['cod'] == 200:
-        descr = data['weather'][0]['description']
         weatherid = data['weather'][0]['id']
     else:
         print("Falling back to sunny music")
         clearnewleaf()
 
-    fullid = weatherid
     while (weatherid >= 10):
         weatherid = weatherid // 10
 
@@ -67,7 +65,6 @@ def updateweather():
 
 def updatetime():
     Time = time.localtime()
-    current_time = time.strftime("%H", Time)
     global hour
     hour = time.strftime("%H", Time)
     hour = int(hour)
