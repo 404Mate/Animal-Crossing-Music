@@ -71,7 +71,7 @@ What Game do you want music from?
 """)
 try:
     game = ["NH", "NL", None][int(game)]   
-except:
+except Exception:
     handle_unrecognized()
 
 # sanity check, current hour in 24h format
@@ -105,7 +105,7 @@ elif weatherchoice == "2":
 """)
     try:
         newleaf(["", "Rainy", "Snowy"][int(weatherchoice)])    
-    except:
+    except Exception:
         handle_unrecognized()
 elif weatherchoice == "3":
     newleaf(choice(["", "Rainy", "Snowy"]))
