@@ -16,6 +16,10 @@ def handle_unrecognized():
     exit()
 
 def play_song(hour, game, weather):
+    # Snowy NL tracks do not include the 'y' in its filename.
+    if weather == "Snowy" and game == "NL":
+        weather = "Snow"
+
     playsound(f"{hour}{game}{weather}.mp3")
 
 # functions for different weathers/no weather and updating variables
