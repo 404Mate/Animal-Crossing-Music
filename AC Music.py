@@ -4,31 +4,16 @@ from playsound import playsound
 import os 
 from dotenv import load_dotenv
 import requests
-from random import randint
+from random import choice
 
 # Load secrets, go to songs folder
 load_dotenv("secrets.env")
 api_key = os.getenv('apikey')
 os.chdir("songs")
 
-game = input("""
-What Game do you want music from? 
-
-1: New Horizons
-2: New Leaf
-3: Random
-
-""")
-if game == "1":
-    game = "NH"
-elif game == "2":
-    game = "NL"
-elif game == "3":
-    game = "random"
-else:
+def handle_unrecognized():
     print("Sorry, that was not recognized")
     exit()
-
 
 def play_song(hour, game, weather):
     playsound(f"{hour}{game}{weather}.mp3")
@@ -65,17 +50,25 @@ def get_weather():
 def get_time():
     return time.strftime("%H%p", time.localtime())
 
+def get_game():
+    return game or choice(["NH", "NL"])
+
 def newleaf(weather=get_weather()):
-    if game == "random":
-        randgame = randint(1, 2)
-        if randgame == 1:
-            randgame = "NH"
-        elif randgame == 2:
-            randgame = "NL"
-        play_song(get_time(), randgame, weather)
-    else:
-        play_song(get_time(), game, weather)
+    play_song(get_time(), get_game(), weather)
     newleaf(weather)
+
+game = input("""
+What Game do you want music from? 
+
+1: New Horizons
+2: New Leaf
+3: Random
+
+""")
+try:
+    game = ["NH", "NL", None][int(game)]   
+except:
+    handle_unrecognized()
 
 # sanity check, current hour in 24h format
 print("It is now", get_time())
@@ -106,28 +99,16 @@ elif weatherchoice == "2":
 3: Snowy
 
 """)
-    if manualweather == "1":
-        newleaf("")
-    elif manualweather == "2":
-        newleaf("Rainy")
-    elif manualweather == "3":
-        newleaf("Snow")
-    else:
-        print("Sorry, that was not recognized")
-        exit()
+    try:
+        newleaf(["", "Rainy", "Snowy"][int(weatherchoice)])    
+    except:
+        handle_unrecognized()
 elif weatherchoice == "3":
-    randweather = randint(1, 3)
-    if randweather == 1:
-        newleaf("")
-    elif randweather == 2:
-        newleaf("Rainy")
-    else:
-        newleaf("Snow")
+    newleaf(choice(["", "Rainy", "Snowy"]))
 elif weatherchoice == "4":
     print("Thank you, goodbye")
 else:
-    print("Sorry, that was not recognized")
-    exit()
+    handle_unrecognized()
 
 
 #---------------------------
