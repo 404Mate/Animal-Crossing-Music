@@ -62,27 +62,24 @@ def get_weather():
 
     return localweather
 
-def updatetime():
-    global hour
-    hour = time.strftime("%H%p", time.localtime())
+def get_time():
+    return time.strftime("%H%p", time.localtime())
 
 def newleaf(weather=get_weather()):
-    updatetime()
     if game == "random":
         randgame = randint(1, 2)
         if randgame == 1:
             randgame = "NH"
         elif randgame == 2:
             randgame = "NL"
-        play_song(hour, randgame, weather)
+        play_song(get_time(), randgame, weather)
     else:
-        play_song(hour, game, weather)
+        play_song(get_time(), game, weather)
     newleaf(weather)
 
 # sanity check, current hour in 24h format
-updatetime()
 print("""
-It is now""", hour
+It is now""", get_time()
 )
 
 # collect zipcode/skip zipcode
