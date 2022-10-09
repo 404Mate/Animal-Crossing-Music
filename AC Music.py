@@ -34,8 +34,7 @@ def play_song(hour, game, weather):
     playsound(f"{hour}{game}{weather}.mp3")
 
 # functions for different weathers/no weather and updating variables
-def updateweather(): 
-    global localweather
+def get_weather(): 
     root_url = "http://api.openweathermap.org/data/2.5/weather?"
     url = f"{root_url}appid={api_key}&q={zipcode}"
     r = requests.get(url)
@@ -44,7 +43,7 @@ def updateweather():
         weatherid = data['weather'][0]['id']
     else:
         print("Falling back to sunny music")
-        clearnewleaf()
+        newleaf("")
 
     while (weatherid >= 10):
         weatherid = weatherid // 10
@@ -58,19 +57,16 @@ def updateweather():
         localweather = "rainy"
     elif weatherid == 6:
         localweather = "snowy"
-    elif weatherid == 7:
-        localweather = ""
-    elif weatherid == 8:
-        localweather = ""
     else:
-        print("Something went wrong and im too lazy to figure it out") 
+        localweather = ""
+
+    return localweather
 
 def updatetime():
     global hour
     hour = time.strftime("%H%p", time.localtime())
 
-def clearnewleaf():
-    weather = ""
+def newleaf(weather=get_weather()):
     updatetime()
     if game == "random":
         randgame = randint(1, 2)
@@ -80,51 +76,8 @@ def clearnewleaf():
             randgame = "NL"
         play_song(hour, randgame, weather)
     else:
-        play_song(hour, randgame, weather)
-    clearnewleaf()
-
-def rainynewleaf():
-    weather = "Rainy"
-    updatetime()
-    if game == "random":
-        randgame = randint(1, 2)
-        if randgame == 1:
-            randgame == "NH"
-        elif randgame == 2:
-            randgame == "NL"
-        play_song(hour, randgame, weather)
-    else:
-        play_song(hour, randgame, weather)
-    rainynewleaf()
-
-def snowynewleaf():
-    weather = "Snowy"
-    updatetime()
-    if game == "random":
-        randgame = randint(1, 2)
-        if randgame == 1:
-            randgame = "NH"
-        elif randgame == 2:
-            randgame = "NL"
-        play_song(hour, randgame, weather)
-    else:
-        play_song(hour, randgame, weather)
-    snowynewleaf()
-
-def weathernewleaf():
-    global weather
-    updateweather()
-    updatetime()
-    if game == "random":
-        randgame = randint(1, 2)
-        if randgame == 1:
-            randgame = "NH"
-        elif randgame == 2:
-            randgame = "NL"
-        play_song(hour, randgame, weather)
-    else:
-        play_song(hour, randgame, weather)
-    weathernewleaf()
+        play_song(hour, game, weather)
+    newleaf(weather)
 
 # sanity check, current hour in 24h format
 updatetime()
@@ -150,8 +103,7 @@ What is your zipcode or city name?
 
 """
 )
-    updateweather()
-    weathernewleaf()
+    newleaf()
 elif weatherchoice == "2":
     manualweather = input("""
 1: Sunny
@@ -160,22 +112,22 @@ elif weatherchoice == "2":
 
 """)
     if manualweather == "1":
-        clearnewleaf()
+        newleaf("")
     elif manualweather == "2":
-        rainynewleaf()
+        newleaf("Rainy")
     elif manualweather == "3":
-        snowynewleaf()
+        newleaf("Snow")
     else:
         print("Sorry, that was not recognized")
         exit()
 elif weatherchoice == "3":
     randweather = randint(1, 3)
     if randweather == 1:
-        clearnewleaf()
+        newleaf("")
     elif randweather == 2:
-        rainynewleaf()
+        newleaf("Rainy")
     else:
-        snowynewleaf()
+        newleaf("Snow")
 elif weatherchoice == "4":
     print("Thank you, goodbye")
 else:
