@@ -78,9 +78,7 @@ def newleaf(weather=get_weather()):
     newleaf(weather)
 
 # sanity check, current hour in 24h format
-print("""
-It is now""", get_time()
-)
+print("It is now", get_time())
 
 # collect zipcode/skip zipcode
 print("""
@@ -88,7 +86,7 @@ How do you want weather?
 
 1: Zipcode
 2: Manual
-3 Random
+3: Random
 4: Exit
 
 """)
