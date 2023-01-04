@@ -1,66 +1,16 @@
 import time
-from playsound import playsound
+import playsound
 import os 
-from dotenv import load_dotenv
+import dotenv 
 import requests
-from random import randint
+import random
+import sys
 
-# Load secrets, go to songs folder
-load_dotenv("secrets.env")
-api_key = os.getenv('apikey')
-os.chdir("songs")
-
-game = input("""
-What Game do you want music from? 
-1: New Horizons
-2: New Leaf
-3: Random
-""")
-if game == "1":
-    game = "NH"
-elif game == "2":
-    game = "NL"
-elif game == "3":
-    game = "random"
-else:
-    print("Sorry, that was not recognized")
-    exit()
+global apikey
+global weather
+global location
 
 
-# functions for different weathers/no weather and updating variables
-def updateweather(): 
-    global localweather
-    root_url = "http://api.openweathermap.org/data/2.5/weather?"
-    url = f"{root_url}appid={api_key}&q={zipcode}"
-    r = requests.get(url)
-    data = r.json()
-    if data['cod'] == 200:
-        descr = data['weather'][0]['description']
-        weatherid = data['weather'][0]['id']
-    else:
-        print("Falling back to sunny music")
-        clearnewleaf()
-
-    fullid = weatherid
-    while (weatherid >= 10):
-        weatherid = weatherid // 10
-
-    #print("The weather type is", weatherid)
-
-    if weatherid == 2:
-        localweather = "rainy"
-    elif weatherid == 3:
-        localweather = "rainy"
-    elif weatherid == 5:
-        localweather = "rainy"
-    elif weatherid == 6:
-        localweather = "snowy"
-    elif weatherid == 7:
-        localweather = ""
-    elif weatherid == 8:
-        localweather = ""
-    else:
-        print("Something went wrong and im too lazy to figure it out") 
 
 def updatetime():
     Time = time.localtime()
@@ -78,116 +28,121 @@ def updatetime():
     else:
         hour = str(hour) 
         hour = hour + "AM"
+    return hour
 
-def clearnewleaf():
-    weather = ""
-    updatetime()
-    if game == "random":
-        randgame = randint(1, 2)
-        if randgame == 1:
-            randgame = "NH"
-        elif randgame == 2:
-            randgame = "NL"
-        playsound(f"{hour}{randgame}{weather}.mp3")
-    else:
-        playsound(f"{hour}{game}{weather}.mp3")
-    clearnewleaf()
 
-def rainynewleaf():
-    weather = "Rainy"
-    updatetime()
-    if game == "random":
-        randgame = randint(1, 2)
-        if randgame == 1:
-            randgame == "NH"
-        elif randgame == 2:
-            randgame == "NL"
-        playsound(f"{hour}{randgame}{weather}.mp3")
-    else:
-        playsound(f"{hour}{game}{weather}.mp3")
-    rainynewleaf()
 
-def snowynewleaf():
-    weather = "Snowy"
-    updatetime()
-    if game == "random":
-        randgame = randint(1, 2)
-        if randgame == 1:
-            randgame = "NH"
-        elif randgame == 2:
-            randgame = "NL"
-        playsound(f"{hour}{randgame}{weather}.mp3")
-    else:
-        playsound(f"{hour}{game}{weather}.mp3")
-    snowynewleaf()
+def main():
+    dotenv.load_dotenv("secrets.env")
+    apikey = os.getenv('apikey')
+    os.chdir("songs")
+    print("\nWelcome to Animal Crossing Music, made with <3 by 404Mate!")
+    if apikey == None:
+        print("\nWARNING! No API key detected. Local weather will not work")
 
-def weathernewleaf():
-    global weather
-    updateweather()
-    updatetime()
-    if game == "random":
-        randgame = randint(1, 2)
-        if randgame == 1:
-            randgame = "NH"
-        elif randgame == 2:
-            randgame = "NL"
-        playsound(f"{hour}{randgame}{localweather}.mp3")
-    else:
-        playsound(f"{hour}{game}{localweather}.mp3")
-    weathernewleaf()
-
-# sanity check, current hour in 24h format
-updatetime()
-print("""
-It is now""", hour
-)
-
-# collect zipcode/skip zipcode
-print("""
-How do you want weather?
-1: Zipcode
-2: Manual
-3 Random
-4: Exit
+    try:
+        while True:
+            game = input("""
+    What game do you want music from?
+    1: New Horizons
+    2: New Leaf
+    3: Random
 """)
-
-weatherchoice = input()
-if weatherchoice == "1":
-    zipcode = input("""
-What is your zipcode or city name? 
-"""
-)
-    updateweather()
-    weathernewleaf()
-elif weatherchoice == "2":
-    manualweather = input("""
-1: Sunny
-2: Rainy
-3: Snowy
+            if game != "1" and game != "2" and game != "3":
+                print("Sorry, that was not recognized")
+            else:
+                break
+        while True:
+            weather = input("""
+    How do you want weather?
+    1: Zipcode/City
+    2: Manual
+    3: Random
 """)
-    if manualweather == "1":
-        clearnewleaf()
-    elif manualweather == "2":
-        rainynewleaf()
-    elif manualweather == "3":
-        snowynewleaf()
-    else:
-        print("Sorry, that was not recognized")
-        exit()
-elif weatherchoice == "3":
-    randweather = randint(1, 3)
-    if randweather == 1:
-        clearnewleaf()
-    elif randweather == 2:
-        rainynewleaf()
-    else:
-        snowynewleaf()
-elif weatherchoice == "4":
-    print("Thank you, goodbye")
-else:
-    print("Sorry, that was not recognized")
-    exit()
+            if weather != "1" and weather != "2" and weather != "3":
+                print("Sorry, that was not recognized")
+            else:
+                break
+        match game: 
+            case "1":
+                game = "NH"  
+            case "2":
+                game = "NL"
+            case "3":
+                game = random.choice(["NH", "NL"])
 
+        match weather: 
+            case "1":
+                location = input("\nWhat is your zipcode or city name?\n")
+                os.system('cls' if os.name == 'nt' else 'clear')
+                while True:
+                    root_url = "http://api.openweathermap.org/data/2.5/weather?"
+                    url = f"{root_url}appid={apikey}&q={location}"
+                    r = requests.get(url)
+                    data = r.json()
+                    if data['cod'] == 200:
+                        descr = data['weather'][0]['description']
+                        weatherid = data['weather'][0]['id']
+                    else:
+                        print("\n Sorry, your location was not recognized or you lost internet connection")
+                    
+                    while (weatherid >= 10):
+                        weatherid //= 10
+                    match weatherid:
+                        case 2:
+                            weather = "Rainy"
+                        case 3: 
+                            weather = "Rainy"
+                        case 5:
+                            weather = "Rainy"
+                        case 6:
+                            weather = "Snowy"
+                        case 7:
+                            weather = ""
+                        case 8:
+                            weather = ""
+                    playsound.playsound(f"{updatetime()}{game}{weather}.mp3")
+
+
+            case "2":
+                while True:
+                    weather = input("""
+    What weather do you want?
+    1: Sunny
+    2: Rainy
+    3: Snowy
+""")                
+                    if weather != "1" and weather != "2" and weather != "3":
+                        print("Sorry, that was not recognized")
+                    else: 
+                        break
+                os.system('cls' if os.name == 'nt' else 'clear')
+                match weather:
+                    case "1":
+                        weather = ""
+                    case "2":
+                        weather = "Rainy"
+                    case "3":
+                        weather = "Snowy"
+
+                while True:
+                    playsound.playsound(f"{updatetime()}{game}{weather}.mp3")
+
+            case "3":
+                    weather = random.choice(["", "Rainy", "Snowy"])
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    while True:
+                        playsound.playsound(f"{updatetime()}{game}{weather}.mp3")
+
+
+        
+    except:
+        print("\nGoodbye!\n")
+
+
+
+if __name__ == "__main__":
+    main()
 
 #---------------------------
 #  made by 404Mate with <3  
