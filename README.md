@@ -13,7 +13,7 @@ Plays hourly Animal Crossing Music in Python.
 
 ## Use
 ------------
-· Expects "secrets.env" in root folder with a varible named "apikey" containing your openweathermap api key.
+· Expects "secrets.env" in root folder with a varible named "apikey" containing your openweathermap api key. Remove "EXAMPLE" from the example file and insert your openweathermap api key
 
 · requires requests, dotenv, and playsound (playsound==1.2.2 on windows for... reasons)
 
